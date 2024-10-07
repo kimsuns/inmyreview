@@ -1,5 +1,11 @@
+import MyRoutes from "./routes/Routes";
+
 function App() {
-  return <>안녕</>;
+  return (
+    <>
+      <MyRoutes />
+    </>
+  );
 }
 
 export default App;
