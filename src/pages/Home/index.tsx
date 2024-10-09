@@ -1,20 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
-import { restaurantCreate } from "../../redux/restaurantDataSlice";
+import {
+  restaurantCreate,
+  restaurantDelete,
+  restaurantUpdate,
+} from "../../redux/restaurantSlice";
 
 function Home() {
-  const addData = "추가될 데이터";
+  const addData = {
+    id: 3,
+    name: "분식짱",
+  };
   const addGoods = {
     data: "추가될 데이터",
   };
-  const data = "레스토랑";
-  const getData = useSelector((state) => state.restaurantsData.value);
+
+  const updateData = {
+    id: 1,
+    name: "수정했다",
+  };
+  const getData = useSelector((state) => state.restaurants.value);
   // const getDatagood = useSelector((state) => state.userData.goods);
   const dispatch = useDispatch();
   console.log("겟데이터", getData);
   return (
     <div>
       Home
-      <div>{getData}</div>
+      <div>
+        {getData.map((item) => (
+          <div>
+            <div>{item.id}</div>
+            <div>{item.name}</div>
+          </div>
+        ))}
+        {/* {getData} */}
+      </div>
       <button
         onClick={() => {
           // dispatch({ type: "증가", category: "restaurant" });
@@ -23,14 +42,21 @@ function Home() {
       >
         음식점 증가
       </button>
-      {/* <div>{getDatagood}</div> */}
       <button
         onClick={() => {
           // dispatch({ type: "증가", category: "restaurant" });
-          // dispatch(addGoods);
+          dispatch(restaurantUpdate(updateData));
         }}
       >
-        가게 증가
+        음식점 수정
+      </button>
+      <button
+        onClick={() => {
+          // dispatch({ type: "증가", category: "restaurant" });
+          dispatch(restaurantDelete(updateData));
+        }}
+      >
+        음식점 삭제
       </button>
     </div>
   );

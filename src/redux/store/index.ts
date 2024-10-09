@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import restaurantDataSlice from "../restaurantDataSlice";
+import restaurantSlice from "../restaurantSlice";
 
 export const store = configureStore({
   reducer: {
     // 기존 combinereducer에 썼던 것을 여기다 쓰면 됨
-    restaurantsData: restaurantDataSlice.reducer,
+    restaurants: restaurantSlice.reducer,
   },
 });
 

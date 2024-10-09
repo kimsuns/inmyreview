@@ -1,48 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const restaurants = [];
-
 // 초기값
 let initialState = {
-  value: ["가게1", "가게2", "가게3"],
+  value: [
+    { id: 1, name: "11111번" },
+    { id: 2, name: "2번" },
+  ],
+  // value: 0,
 };
-// goods: ["상품1", "상품2", "상품3"],
-// dress: ["옷1", "옷2", "옷3"],
 
 // createSlice 리덕스 만드는걸 도와줌
-const restaurantDataSlice = createSlice({
-  name: "restaurantsData",
+const restaurantSlice = createSlice({
+  name: "restaurant",
   initialState,
   // 리듀서는 객체로 이루어져있고, 그 객체는 다 함수로 이루어짐
   reducers: {
-    restaurantsInit: (state, action) => {
+    restaurantInit: (state, action) => {
       // 리턴과 ...state 가 기본이라 생략 가능
       // 바꾸고 싶은 값만 작성함
       // state.productList = action.payload.data
       console.log("데이터 초기값 init");
     },
     restaurantCreate: (state, action) => {
-      console.log("데이터 추가", action);
-      console.log("데이터 추가", action.payload);
-      // console.log("데이터 카테고리",action.category);
-      state.value = state.value + action.payload.data;
+      state.value = [...state.value, action.payload];
     },
     restaurantUpdate: (state, action) => {
-      console.log("데이터 수정");
+      state.value = state.value.map((item) =>
+        item.id === action.payload.id ? action.payload : item
+      );
     },
     restaurantDelete: (state, action) => {
       console.log("데이터 삭제");
+      state.value = state.value.filter((item) => item.id !== action.payload.id);
     },
   },
 });
 
-export default restaurantDataSlice;
+export default restaurantSlice;
 export const {
-  restaurantsInit,
+  restaurantInit,
   restaurantCreate,
   restaurantDelete,
   restaurantUpdate,
-} = restaurantDataSlice.actions;
+} = restaurantSlice.actions;
 // export default dataSlice.reducer;
 
 // 디스패치 사용시
